@@ -47,9 +47,14 @@ Verb: "see"
 
 
 ## 5. Interaction diagrams: ##
+- User story one:
+
+```
+user -----> release_a_bike -----> docking station -----> bike_released
+```
 
 - User story two:
 
 ```
-user -----> is_it_good? -----> bike
+user -----> is_it_good? -----> good_bike
 ```
