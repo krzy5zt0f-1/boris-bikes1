@@ -33,6 +33,17 @@ Verb: "see"
 | Object   | Messages   |
 |----------|------------|
 |          |            |
-|          |.           |
+|          |            |
+
+
+## 4. Filling in the table ##
+
+| Object   | Messages   |
+|----------|------------|
+| bike   | use_a_bike   |
+| Docking station   | release_bike   |
+| User/Person   |            |
+| bike   | is_it_good?   |
+
 
 
