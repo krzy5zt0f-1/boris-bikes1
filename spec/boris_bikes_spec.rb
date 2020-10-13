@@ -5,6 +5,9 @@ RSpec.describe DockingStation do
   it 'does release_bike return an instance of the Bike class' do
     expect(subject.release_bike).to be_an_instance_of(Bike)
   end
+  it 'does docking_station dock bike' do
+    expect(subject).to respond_to(:dock_bike)
+  end
 end
 
 RSpec.describe Bike do
