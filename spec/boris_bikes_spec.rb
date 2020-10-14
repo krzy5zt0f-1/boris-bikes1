@@ -8,7 +8,7 @@ RSpec.describe DockingStation do
       expect(subject.release_bike).to be_an_instance_of(Bike)
     end
     it "raise an error if @available_bikes is empty" do
-      subject.release_bike
+      allow(subject.available_bikes).to receive(:size).and_return(0)
       expect{subject.release_bike}.to raise_error
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe DockingStation do
       expect(docking_station).to respond_to(:dock_bike).with(1).arguments
     end
 
-    it "raise an error if there is a bike in the docking station" do
+    it "raise an error if the docking station is full" do
 
       expect{subject.dock_bike(Bike.new)}.to raise_error
     end
@@ -43,7 +43,7 @@ RSpec.describe DockingStation do
 
     expect(docking_station.available_bikes).not_to eq(nil)
     #expect(docking_station.available_bikes).not_to eq([])
-    expect(docking_station.available_bikes.length).to eq(1)
+    expect(docking_station.available_bikes.length).to_not eq(0)
   end
 end
 

@@ -2,7 +2,8 @@ class DockingStation
   attr_reader :available_bikes
 
   def initialize
-    @available_bikes = [Bike.new]
+    arr = [*1..20]
+    @available_bikes = arr.map { |x| Bike.new }
   end
 
   def release_bike
@@ -16,11 +17,11 @@ class DockingStation
   end
 
   def dock_bike(returned_bike)
-    if @available_bikes.size == 1
+    if @available_bikes.size == 20
       raise StandardError.new "Docking station full"
     else
       @available_bikes << returned_bike
-    end 
+    end
   end
 end
 
