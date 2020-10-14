@@ -2,11 +2,17 @@ class DockingStation
   attr_reader :available_bikes
 
   def initialize
-    @available_bikes = []
+    @available_bikes = [Bike.new]
   end
 
   def release_bike
-    return Bike.new
+    if @available_bikes.size == 0
+      raise StandardError.new "no bikes available"
+    else
+    bike_to_be_released = @available_bikes[0]
+    @available_bikes.shift
+  end
+   return  bike_to_be_released
   end
 
   def dock_bike(returned_bike)
