@@ -7,8 +7,9 @@ RSpec.describe DockingStation do
     it 'does release_bike return an instance of the Bike class' do
       expect(subject.release_bike).to be_an_instance_of(Bike)
     end
+
     it "raise an error if @available_bikes is empty" do
-      allow(subject.available_bikes).to receive(:size).and_return(0)
+      allow(subject.available_bikes).to receive(:count).and_return(0)
       expect{subject.release_bike}.to raise_error
     end
   end
