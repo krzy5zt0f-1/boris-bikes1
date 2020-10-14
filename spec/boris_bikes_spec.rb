@@ -64,7 +64,15 @@ RSpec.describe Bike do
   it 'to responding to working? method' do
     expect(subject).to respond_to(:working?)
   end
-
+  it "responds to method report" do
+    expect(subject).to respond_to(:report)
+  end
+  describe ".report" do
+    it "changes the status of bike to @working = false" do
+      subject.report
+      expect(subject.working?).to eq false
+    end
+  end
   it 'does the bike work - true or false' do
     expect(subject.working?).not_to eq(nil)
   end

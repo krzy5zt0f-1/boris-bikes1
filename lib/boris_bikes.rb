@@ -11,9 +11,8 @@ class DockingStation
 
   def release_bike
     (raise StandardError.new "no bikes available") if self.empty?
-
-    bike_to_be_released = @available_bikes[0]
-    @available_bikes.shift
+        bike_to_be_released = @available_bikes[0]
+        @available_bikes.shift
     return  bike_to_be_released
   end
 
@@ -33,7 +32,16 @@ class DockingStation
 end
 
 class Bike
+
+  def initialize
+    @working = true
+  end
+
   def working?
-    return true  #assume true as we assume all bikes are working
+    return @working  #assume true as we assume all bikes are working
+  end
+
+  def report
+    @working = false
   end
 end
