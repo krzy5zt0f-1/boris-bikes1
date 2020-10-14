@@ -3,6 +3,18 @@ require 'boris_bikes'
 RSpec.describe DockingStation do
   it {is_expected.to respond_to(:release_bike)}
 
+  describe "read capactiy variable from the docking station instance" do
+    it 'returns the capacity value' do
+      expect(subject.capacity).to_not eq(nil)
+      expect(subject.capacity).to eq(20)
+    end
+
+    it 'returns user defined capacity value' do
+      docking_station = DockingStation.new(15)
+      expect(docking_station.capacity).to eq(15)
+    end
+  end
+
   describe ".release_bike" do
     it 'does release_bike return an instance of the Bike class' do
       expect(subject.release_bike).to be_an_instance_of(Bike)

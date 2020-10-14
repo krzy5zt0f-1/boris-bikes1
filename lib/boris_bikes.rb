@@ -1,9 +1,12 @@
 class DockingStation
   attr_reader :available_bikes
+  attr_accessor :capacity
   @@DEFAULT_CAPACITY = 20
-  def initialize
+
+  def initialize(capacity = @@DEFAULT_CAPACITY)
     arr = [*1..@@DEFAULT_CAPACITY]
     @available_bikes = arr.map { |x| Bike.new }
+    @capacity = capacity
   end
 
   def release_bike
