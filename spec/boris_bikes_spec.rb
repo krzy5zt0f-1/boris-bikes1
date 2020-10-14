@@ -11,23 +11,39 @@ RSpec.describe DockingStation do
       subject.release_bike
       expect{subject.release_bike}.to raise_error
     end
-end
+  end
+
   it 'does docking_station dock bike' do
     expect(subject).to respond_to(:dock_bike)
   end
 
-  it 'docking process accepts a Bike as an argument' do
-    subject.dock_bike(Bike.new)
-    expect(subject).to respond_to(:dock_bike).with(1).arguments
+  describe ".dock_bike" do
+    it 'docking process accepts a Bike as an argument' do
+      docking_station = DockingStation.new
+      docking_station.release_bike
+
+      docking_station.dock_bike(Bike.new)
+      expect(docking_station).to respond_to(:dock_bike).with(1).arguments
+    end
+
+    it "raise an error if there is a bike in the docking station" do
+
+      expect{subject.dock_bike(Bike.new)}.to raise_error
+    end
   end
 
   it 'accepts returned bike' do
+    docking_station = DockingStation.new
     bike = Bike.new
-    subject.dock_bike(bike)
+    # empty docking station
+    docking_station.release_bike
+    # complete test
+    docking_station.dock_bike(bike)
 
-    expect(subject.available_bikes).not_to eq(nil)
-    #expect(subject.available_bikes).not_to eq([])
-    expect(subject.available_bikes.length).to eq(2)
+
+    expect(docking_station.available_bikes).not_to eq(nil)
+    #expect(docking_station.available_bikes).not_to eq([])
+    expect(docking_station.available_bikes.length).to eq(1)
   end
 end
 

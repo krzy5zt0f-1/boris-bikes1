@@ -16,7 +16,11 @@ class DockingStation
   end
 
   def dock_bike(returned_bike)
-    @available_bikes << returned_bike
+    if @available_bikes.size == 1
+      raise StandardError.new "Docking station full"
+    else
+      @available_bikes << returned_bike
+    end 
   end
 end
 
