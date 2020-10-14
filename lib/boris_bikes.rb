@@ -1,8 +1,8 @@
 class DockingStation
   attr_reader :available_bikes
-
+  @@DEFAULT_CAPACITY = 20
   def initialize
-    arr = [*1..20]
+    arr = [*1..@@DEFAULT_CAPACITY]
     @available_bikes = arr.map { |x| Bike.new }
   end
 
@@ -21,7 +21,7 @@ class DockingStation
 
   private
   def full?
-    @available_bikes.count >= 20
+    @available_bikes.count >= @@DEFAULT_CAPACITY
   end
 
   def empty?
