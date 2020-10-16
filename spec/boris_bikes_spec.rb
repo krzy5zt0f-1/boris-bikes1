@@ -16,6 +16,7 @@ RSpec.describe DockingStation do
   end
 
   describe ".release_bike" do
+    let(:bike) { double :bike }
     it 'does release_bike return an instance of the Bike class' do
       expect(subject.release_bike).to be_an_instance_of(Bike)
     end
@@ -27,8 +28,9 @@ RSpec.describe DockingStation do
     it "does not release broken bikes" do
       docking_station = DockingStation.new(1)
       docking_station.release_bike
-      bike = Bike.new
-      bike.report
+      #bike = Bike.new
+      allow(bike).to receive(:working?) { false }
+      #bike.report
       docking_station.dock_bike(bike)
       expect {docking_station.release_bike}.to raise_error "no working bikes available"
     end
@@ -39,32 +41,37 @@ RSpec.describe DockingStation do
   end
 
   describe ".dock_bike" do
+    let(:bike) { double :bike }
     it 'docking process accepts a Bike as an argument' do
       docking_station = DockingStation.new
       docking_station.release_bike
 
-      docking_station.dock_bike(Bike.new)
+      docking_station.dock_bike(bike)
       expect(docking_station).to respond_to(:dock_bike).with(1).arguments
     end
 
     it "raise an error if the docking station is full" do
 
-      expect{subject.dock_bike(Bike.new)}.to raise_error
+      expect{subject.dock_bike(bike)}.to raise_error
     end
   end
 
-  it 'accepts returned bike' do
-    docking_station = DockingStation.new
-    bike = Bike.new
-    # empty docking station
-    docking_station.release_bike
-    # complete test
-    docking_station.dock_bike(bike)
+  describe ".release_bike" do
+    let(:bike) { double :bike }
+    it 'accepts returned bike' do
+
+      docking_station = DockingStation.new
+      #bike = Bike.new
+      # empty docking station
+      docking_station.release_bike
+      # complete test
+      docking_station.dock_bike(bike)
 
 
-    expect(docking_station.available_bikes).not_to eq(nil)
-    #expect(docking_station.available_bikes).not_to eq([])
-    expect(docking_station.available_bikes.length).to_not eq(0)
+      expect(docking_station.available_bikes).not_to eq(nil)
+      #expect(docking_station.available_bikes).not_to eq([])
+      expect(docking_station.available_bikes.length).to_not eq(0)
+    end
   end
 end
 
