@@ -4,16 +4,18 @@ class DockingStation
   @@DEFAULT_CAPACITY = 20
 
   def initialize(capacity = @@DEFAULT_CAPACITY)
-    arr = [*1..@@DEFAULT_CAPACITY]
+    @capacity = capacity
+    arr = [*1..@capacity]
     @available_bikes = arr.map { |x| Bike.new }
     @capacity = capacity
   end
 
   def release_bike
     (raise StandardError.new "no bikes available") if self.empty?
-        bike_to_be_released = @available_bikes[0]
-        @available_bikes.shift
-    return  bike_to_be_released
+  print   selection = @available_bikes.select { |bike| bike.working? }
+    fail "no working bikes available" if selection.empty?
+      @available_bikes  -= [selection.first]
+    return  selection.first
   end
 
   def dock_bike(returned_bike)

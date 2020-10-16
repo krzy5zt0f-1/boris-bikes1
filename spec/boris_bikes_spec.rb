@@ -10,8 +10,8 @@ RSpec.describe DockingStation do
     end
 
     it 'returns user defined capacity value' do
-      docking_station = DockingStation.new(15)
-      expect(docking_station.capacity).to eq(15)
+      docking_station1 = DockingStation.new(1)
+      expect(docking_station1.capacity).to eq(1)
     end
   end
 
@@ -23,6 +23,14 @@ RSpec.describe DockingStation do
     it "raise an error if @available_bikes is empty" do
       allow(subject.available_bikes).to receive(:count).and_return(0)
       expect{subject.release_bike}.to raise_error
+    end
+    it "does not release broken bikes" do
+      docking_station = DockingStation.new(1)
+      docking_station.release_bike
+      bike = Bike.new
+      bike.report
+      docking_station.dock_bike(bike)
+      expect {docking_station.release_bike}.to raise_error "no working bikes available"
     end
   end
 
